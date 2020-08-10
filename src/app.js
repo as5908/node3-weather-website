@@ -59,18 +59,23 @@ app.get("/weather", (req, res) => {
         error,
       });
     }
-    foreCast(latitude, longitude, (error, forecastData) => {
-      if (error) {
-        return res.send({
-          error,
+    foreCast(
+      latitude,
+      longitude,
+      (error, { feelsLike, current, description, humidity }) => {
+        if (error) {
+          return res.send({
+            error,
+          });
+        }
+        res.send({
+          forecast: `It is currently ${description}, current temperature is ${current} but it 
+        feels like ${feelsLike}, current humidity is ${humidity} `,
+          location,
+          address,
         });
       }
-      res.send({
-        forecast: forecastData,
-        location,
-        address,
-      });
-    });
+    );
   });
 });
 
