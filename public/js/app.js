@@ -1,25 +1,25 @@
-const weatherForm = document.querySelector('form');
-const searchElement = document.querySelector('input');
-const messageOne = document.querySelector('#message-1');
-const messageTwo = document.querySelector('#message-2');
+const weatherForm = document.querySelector("form");
+const searchElement = document.querySelector("input");
+const messageOne = document.querySelector("#message-1");
+const messageTwo = document.querySelector("#message-2");
 
-weatherForm.addEventListener('submit', (event) => {
-	event.preventDefault();
-	const location = searchElement.value;
+weatherForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const location = searchElement.value;
 
-	messageOne.textContent = 'Loading...';
-	messageTwo.textContent = '';
+  messageOne.textContent = "Loading...";
+  messageTwo.textContent = "";
 
-	fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
-		response.json().then((data) => {
-			if (data.error) {
-				console.log(data.error);
-				messageOne.textContent = data.error;
-			} else {
-				console.log(data.location, data.forecast);
-				messageOne.textContent = data.location;
-				messageTwo.textContent = data.forecast.description;
-			}
-		});
-	});
+  fetch(`/weather?address=${location}`).then((response) => {
+    response.json().then((data) => {
+      if (data.error) {
+        console.log(data.error);
+        messageOne.textContent = data.error;
+      } else {
+        console.log(data.location, data.forecast);
+        messageOne.textContent = data.location;
+        messageTwo.textContent = data.forecast.description;
+      }
+    });
+  });
 });
